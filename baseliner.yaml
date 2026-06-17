@@ -1,0 +1,25 @@
+# baseliner control config for the baselinerhq organization.
+# Scanned weekly by .github/workflows/baseliner.yml.
+scope:
+  github:
+    type: org
+    name: baselinerhq
+  # This control repo is the scanner's home, not a scanned project.
+  exclude:
+    - baseliner-control
+policy:
+  base: default
+  # Infra repos aren't software projects: the org profile repo (.github) and the
+  # auto-generated Homebrew tap legitimately have no CI, CODEOWNERS, dependency
+  # manifests, or .gitignore. Waive only those; everything else still applies.
+  repo_ignores:
+    "baselinerhq/.github":
+      - ci_present
+      - codeowners_exists
+      - dependency_update_config
+      - gitignore_exists
+    "baselinerhq/homebrew-tap":
+      - ci_present
+      - codeowners_exists
+      - dependency_update_config
+      - gitignore_exists
