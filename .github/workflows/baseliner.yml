@@ -15,6 +15,11 @@ jobs:
 
       - name: Install baseliner
         run: curl -fsSL https://raw.githubusercontent.com/baselinerhq/baseliner/main/scripts/install.sh | bash
+        env:
+          # Pin the scanner version: reproducible scans, and avoids the
+          # unauthenticated "latest release" API lookup that gets rate-limited
+          # on shared CI runner IPs.
+          VERSION: v0.1.0
 
       - name: Run baseliner
         run: |
