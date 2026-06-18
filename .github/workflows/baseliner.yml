@@ -19,7 +19,7 @@ jobs:
           # Pin the scanner version: reproducible scans, and avoids the
           # unauthenticated "latest release" API lookup that gets rate-limited
           # on shared CI runner IPs.
-          VERSION: v0.2.0
+          VERSION: v0.2.1
 
       - name: Run baseliner
         run: |
