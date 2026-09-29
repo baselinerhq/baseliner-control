@@ -12,12 +12,14 @@ policy:
   # Infra repos aren't software projects: the org profile repo (.github) and the
   # auto-generated Homebrew tap legitimately have no CI, CODEOWNERS, dependency
   # manifests, or .gitignore. Waive only those; everything else still applies.
+  # The profile repo also changes rarely by design, so staleness is not drift.
   repo_ignores:
     "baselinerhq/.github":
       - ci_present
       - codeowners_exists
       - dependency_update_config
       - gitignore_exists
+      - stale_repo
     "baselinerhq/homebrew-tap":
       - ci_present
       - codeowners_exists
@@ -25,10 +27,12 @@ policy:
       - gitignore_exists
 
 # Privacy guard: this control repo is public and its token can read private
-# repos. Redact private/internal repos from the public scan output (console
-# logs + results.json artifact). A no-op while the org is all-public; it takes
-# effect the moment a private repo is added. See:
+# repos. Drop private/internal repos from the public output entirely, rather than
+# redacting them to a private/N row that still shows their existence and score.
+# The exit code still counts them, and a private repo's findings cannot be
+# waived here without naming it in this public file (baselinerhq/baseliner#75;
+# a visibility-scoped waiver is baselinerhq/baseliner#98). See:
 # https://baselinerhq.github.io/configuration#privacy-guard
 privacy:
   public_context: true
-  private_repos: redact
+  private_repos: exclude
