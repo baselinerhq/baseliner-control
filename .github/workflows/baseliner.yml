@@ -19,7 +19,7 @@ jobs:
           # Pin the scanner version: reproducible scans, and avoids the
           # unauthenticated "latest release" API lookup that gets rate-limited
           # on shared CI runner IPs.
-          VERSION: v0.2.6
+          VERSION: v0.2.7
 
       # Monitor mode: findings go to each repo as a findings issue, so they do
       # not fail this run. --fail-under 0 passes any assessed repo, and
