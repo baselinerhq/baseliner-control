@@ -22,5 +22,7 @@ the workflow from the **Actions** tab.
 
 - The scan is report-only today (artifact). To open/update a findings issue per
   repo, add `--open-issues` to the scan step.
-- The workflow installs the released binary via the install script, so it also
-  exercises baseliner's distribution.
+- The workflow installs the released binary pinned by version and SHA-256, and
+  checks its build provenance before the scan runs with the token. Bump
+  `VERSION` and `SHA256` together, taking the hash from the release's
+  `checksums.txt`.
